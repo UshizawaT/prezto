@@ -1,3 +1,79 @@
+export PYENV_ROOT=${HOME}/.pyenv
+if [ -d "${PYENV_ROOT}" ]; then
+    export PATH=${PYENV_ROOT}/bin:$PATH
+    eval "$(pyenv init -)"
+    eval "$(pyenv virtualenv-init -)"
+fi
+
+export PATH=/usr/local/bin:$PATH
+jenv add $(/usr/libexec/java_home -v 12)
+jenv add $(/usr/libexec/java_home -v 1.8)
+
+autoload -U compinit
+compinit
+autoload predict-on
+#predict-on
+
+setopt auto_cd
+setopt auto_pushd
+setopt correct
+setopt list_packed
+setopt nolistbeep
+
+export LANG=ja_JP.UTF-8
+#export LANG=ja_JP.eucJP
+case ${UID} in
+0)
+    LANG=C
+    ;;
+esac
+
+HISTFILE=~/.zsh_history
+HISTSIZE=10000
+SAVEHIST=10000
+setopt hist_ignore_dups     # ignore duplication command history list
+setopt share_history        # share command history data
+
+# historical backward/forward search with linehead string binded to ^P/^N
+#
+autoload history-search-end
+zle -N history-beginning-search-backward-end history-search-end
+zle -N history-beginning-search-forward-end history-search-end
+bindkey "^[p" history-beginning-search-backward-end
+bindkey "^[n" history-beginning-search-forward-end
+bindkey "\\ep" history-beginning-search-backward-end
+bindkey "\\en" history-beginning-search-forward-end
+
+zmodload -i zsh/mathfunc
+
+#cd /usr/local/root-6.12.06/cmake_build
+#source bin/thisroot.sh
+#cd - > /dev/null
+#alias root="root -l"
+
+#cd /usr/local/root-6.14.04/cmake_build
+cd /usr/local/root-6.14.06/cmake_build
+#cd /usr/local/root-6.16.00/cmake_build
+source bin/thisroot.sh
+cd - > /dev/null
+alias root="root -l"
+
+export PATH=/usr/local/opt/qt/bin:$PATH
+export LDFLAGS="-L/usr/local/opt/qt/lib":$LDFLAGS
+export CPPFLAGS="-I/usr/local/opt/qt/include":$CPPFLAGS
+export PKG_CONFIG_PATH=/usr/local/opt/qt/lib/pkgconfig:$PKG_CONFIG_PATH
+
+cd /usr/local/geant4.10.05-build/bin
+source geant4.sh
+cd - > /dev/null
+alias g4cmake='cmake -DGeant4_DIR=/usr/local/geant4.10.05-build/lib/Geant4-10.5.0/'
+
+alias brew="env PATH=${PATH/\/usr\/local\/root-6.14.02\/cmake_build\/bin:\/Users\/ushizawa\/.pyenv\/shims:/} brew"
+alias rootcpp='cd ~/data/test/clion_folder/'
+export COOLING=/Users/ushizawa/data/cooling_test
+alias pon='predict-on'
+alias poff=''predict-off
+alias em='emacs'
 #
 # Executes commands at the start of an interactive session.
 #
@@ -6,8 +82,10 @@
 #
 
 # Source Prezto.
-if [[ -s "${ZDOTDIR:-$HOME}/.zprezto/init.zsh" ]]; then
-  source "${ZDOTDIR:-$HOME}/.zprezto/init.zsh"
+if [[ -s "${HOME}/.zprezto/init.zsh" ]]; then
+  source "${HOME}/.zprezto/init.zsh"
 fi
 
 # Customize to your needs...
+export PATH="$HOME/.jenv/bin:$PATH"
+eval "$(jenv init -)"

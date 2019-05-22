@@ -5,5 +5,5 @@ indent_style = space
 indent_size = 2
 trim_trailing_whitespace = true
 
-[{.gitattributes,.gitignore,.gitmodules}]
+[{.gitattributes,.gitmodules}]
 indent_style = tab

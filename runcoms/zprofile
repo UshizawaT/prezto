@@ -47,6 +47,8 @@ path=(
   $path
 )
 
+eval "$(pyenv virtualenv-init -)"
+
 #
 # Less
 #
